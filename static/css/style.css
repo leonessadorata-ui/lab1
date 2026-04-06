@@ -1,0 +1,469 @@
+/* плавная прокрутка по якорям */
+html {
+  scroll-behavior: smooth;
+}
+
+/* базовый фон и шрифт */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #f5e1e6;
+  font-size: 16px;
+}
+
+/* градиенты секций (кроме hero) */
+.about,
+.why,
+.menu-section,
+.contacts {
+  background: linear-gradient(
+    to bottom,
+    #212121 0%,
+    #4b4b4b 50%,
+    #212121 100%
+  );
+}
+
+/* === Фиксированная шапка === */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px 10px;
+
+  background: transparent;
+  backdrop-filter: none;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.site-header.visible {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(24, 24, 24, 0.9);
+  backdrop-filter: blur(4px);
+}
+
+/* логотип в шапке */
+.logo {
+  font-family: "Aclonica", sans-serif;
+  font-size: 20px;
+  letter-spacing: 4px;
+}
+
+/* меню (в шапке и в hero) */
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.main-nav a {
+  color: #f5e1e6;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+main {
+  margin-top: 0;
+}
+
+/* === 1. Главный экран с картинкой === */
+
+.hero {
+  position: relative;
+}
+
+/* сама картинка — полностью адаптивная по ширине */
+.hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* блок с меню и логотипом поверх картинки */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 80px;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* по ссылкам всё равно можно кликать */
+.hero-overlay .main-nav a {
+  pointer-events: auto;
+}
+
+/* меню по центру над логотипом */
+.hero-header {
+  margin-bottom: 40px;
+}
+
+/* центрируем меню */
+.hero-header .main-nav ul {
+  justify-content: center;
+}
+
+/* заголовок FARFALETTA и подпись */
+.hero-logo h1 {
+  margin: 0;
+  font-family: "Aclonica", sans-serif;
+  font-size: 48px;
+  letter-spacing: 6px;
+  color: #f5e1e6;
+}
+
+.hero-logo p {
+  font-family: "Aclonica", sans-serif;
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+/* === 2. Блок "О нас" + отзывы === */
+
+.about {
+  padding: 80px 80px 100px;
+}
+
+.about-text h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.about-text p {
+  max-width: 900px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.about-reviews {
+  margin-top: 60px;
+}
+
+.about-reviews h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.reviews-list {
+  display: flex;
+  gap: 30px;
+}
+
+.review-card {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.4);
+  color: #f5e1e6;
+  border-radius: 20px;
+  padding: 24px;
+  font-size: 16px;
+  line-height: 1.7;
+
+}
+
+/* === 3. Блок "Почему именно мы" === */
+
+.why {
+  padding: 80px 80px 100px;
+}
+
+.why h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+
+/* карточка без подложки */
+.feature-card {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  min-height: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* квадраты по умолчанию на десктопе */
+.feature-card img {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 8px;
+}
+
+.feature-card h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* === 4. Меню === */
+
+.menu-section {
+  font-size: 24px;
+  padding: 40px 80px 60px;
+}
+
+.menu-buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 40px;
+}
+
+/* кнопки меню */
+.menu-btn {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+
+  background: rgba(0, 0, 0, 0.4);
+  color: #f5e1e6;
+  border-radius: 20px;
+  padding: 40px 0;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.menu-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+/* иконки соцсетей */
+.contacts-icons img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* === 5. Блок "Контакты" === */
+
+.contacts {
+  padding: 40px 80px 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.contacts-info h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.contacts-info p {
+  margin: 6px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.contacts-icons {
+  margin-top: 30px;
+  display: flex;
+  gap: 18px;
+}
+
+/* === Футер === */
+
+.site-footer {
+  height: 36px;
+  background: #181818;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #c7b2b8;
+}
+
+/* === Адаптив (без уменьшения шрифтов) === */
+
+/* 992–1199 px */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .about,
+  .why,
+  .contacts,
+  .menu-section {
+    padding: 60px 40px 80px;
+  }
+
+  .features-grid {
+    gap: 24px;
+  }
+
+  .feature-card img {
+    width: 22vw;
+    height: 22vw;
+    max-width: 260px;
+  }
+}
+
+/* 768–991 px */
+@media (max-width: 991px) and (min-width: 768px) {
+  .site-header {
+    padding: 12px 24px 8px;
+  }
+
+  .about,
+  .why,
+  .contacts,
+  .menu-section {
+    padding: 50px 30px 70px;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-card img {
+    width: 28vw;
+    height: 28vw;
+    max-width: 240px;
+  }
+
+  .reviews-list {
+    flex-direction: column;
+  }
+
+  .hero-header {
+    margin-bottom: 28px;
+  }
+}
+
+/* 576–767 px */
+@media (max-width: 767px) and (min-width: 576px) {
+  .site-header {
+    padding: 10px 16px 6px;
+  }
+
+  .main-nav ul {
+    gap: 12px;
+  }
+
+  .hero-header {
+    margin-bottom: 24px;
+  }
+
+  .about,
+  .why,
+  .contacts,
+  .menu-section {
+    padding: 40px 24px 60px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .feature-card {
+    width: 80%;
+    max-width: 360px;
+  }
+
+  .feature-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .contacts {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ≤ 575 px — НИЧЕГО не уменьшаем, только верстку подправляем */
+@media (max-width: 575px) {
+  body {
+    font-size: 16px;
+  }
+
+  .about-text p,
+  .review-card,
+  .contacts-info p {
+    font-size: 16px;
+  }
+
+  .about-text h2,
+  .about-reviews h2,
+  .why h2,
+  .contacts-info h2 {
+    font-size: 24px;
+  }
+
+  .hero-logo h1 {
+    font-size: 48px;
+  }
+
+  .hero-logo p {
+    font-size: 18px;
+  }
+
+  .main-nav a {
+    font-size: 16px;
+  }
+
+  .site-header {
+    padding: 8px 12px 4px;
+  }
+
+  .about,
+  .why,
+  .contacts,
+  .menu-section {
+    padding: 20px 12px 24px;
+  }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+  }
+
+  .menu-buttons {
+    flex-direction: column;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    justify-items: center;
+  }
+
+  .feature-card {
+    width: 96vw;
+    max-width: 360px;
+    margin-bottom: 0;
+  }
+
+  .feature-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+}
